@@ -12,6 +12,6 @@ RUN apt-get -y update \
     && apt-get install -y mysql-server -o pkg::Options::="--force-confdef" -o pkg::Options::="--force-confold" --fix-missing \
     && apt-get install -y mysql-client \
     && mysql -u root -p"root" < /db.sql
-CMD service mysql start \
+CMD find /var/lib/mysql/mysql -exec touch -c -a {} && service mysql start \
 	&& /cnc
 EXPOSE 23
